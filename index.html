@@ -704,13 +704,19 @@
             <p><strong>Email :</strong> veritykazzyks@gmail.com</p>
             <p><strong>Horaires :</strong> Lun - Sam : 10h00 - 19h00</p>
           </div>
-          <form id="contactForm" class="reveal" style="transition-delay: 0.1s;">
-            <input type="text" placeholder="Votre nom" required>
-            <input type="email" placeholder="Votre email" required>
-            <input type="text" placeholder="Sujet">
-            <textarea placeholder="Votre message" required></textarea>
-            <button type="submit" class="btn btn-primary">Envoyer</button>
-          </form>
+          <form action="https://formspree.io/f/TON_ID_UNIQUE" method="POST">
+  
+  <label for="name">Nom :</label>
+  <input type="text" id="name" name="name" required>
+
+  <label for="email">Votre e-mail :</label>
+  <input type="email" id="email" name="email" required>
+
+  <label for="message">Message :</label>
+  <textarea id="message" name="message" required></textarea>
+
+  <button type="submit">Envoyer</button>
+</form>
         </div>
       </div>
     </section>
