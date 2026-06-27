@@ -2612,11 +2612,42 @@
       cartPanel.classList.toggle('active');
     });
 
-    contactForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      alert('Merci pour votre message. Nous vous répondrons rapidement.');
-      contactForm.reset();
+    contactForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const submitBtn = document.getElementById('submitBtn');
+  const originalText = submitBtn.textContent;
+  submitBtn.textContent = 'Envoi en cours…';
+  submitBtn.disabled = true;
+
+  try {
+    const response = await fetch(contactForm.action, {
+      method: 'POST',
+      body: new FormData(contactForm),
+      headers: { 'Accept': 'application/json' }
     });
+
+    if (response.ok) {
+      submitBtn.textContent = '✓ Message envoyé !';
+      submitBtn.style.background = '#6a9e5b';
+      contactForm.reset();
+      setTimeout(() => {
+        submitBtn.textContent = originalText;
+        submitBtn.style.background = '';
+        submitBtn.disabled = false;
+      }, 3000);
+    } else {
+      throw new Error('Erreur serveur');
+    }
+  } catch (err) {
+    submitBtn.textContent = '✗ Erreur, réessayez';
+    submitBtn.style.background = '#c0392b';
+    setTimeout(() => {
+      submitBtn.textContent = originalText;
+      submitBtn.style.background = '';
+      submitBtn.disabled = false;
+    }, 3000);
+  }
+});
 
     /* ── Modale commande ── */
     const overlay       = document.getElementById('overlay');
